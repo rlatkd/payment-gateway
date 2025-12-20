@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  channel:
+    image: mysql:8.0
+    container_name: channel
+    ports:
+      - "3301:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: rlatkd
+      MYSQL_PASSWORD: '1234'
+      MYSQL_DATABASE: CHANNEL
+    volumes:
+      - channel_volumes:/var/lib/mysql
+      - ./channel/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  core:
+    image: mysql:8.0
+    container_name: core
+    ports:
+      - "3302:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: rlatkd
+      MYSQL_PASSWORD: '1234'
+      MYSQL_DATABASE: CORE
+    volumes:
+      - core_volumes:/var/lib/mysql
+      - ./core/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  channel_volumes:
+  core_volumes:
