@@ -1,3 +1,5 @@
+
+
 -- 통합 결제 트랜잭션
 CREATE TABLE core_transaction (
     tx_id VARCHAR(255) PRIMARY KEY,

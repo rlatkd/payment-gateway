@@ -1,6 +1,18 @@
 version: '3.8'
 
 services:
+  cache:
+    image: redis:7.2-alpine
+    container_name: cache
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_PASSWORD: '1234'
+    volumes:
+      - cache_volumes:/data
+      - ./cache/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+
   channel:
     image: mysql:8.0
     container_name: channel
@@ -30,5 +42,6 @@ services:
       - ./core/init.sql:/docker-entrypoint-initdb.d/init.sql
 
 volumes:
+  cache_volumes:
   channel_volumes:
   core_volumes:
