@@ -4,12 +4,12 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"net"
 	"net/http"
 
 	"auth/internal/handlers"
 	"auth/internal/repository"
 	"auth/internal/utils"
+	"auth/internal/middleware"
 
 	_ "github.com/go-sql-driver/mysql"
 	"golang.org/x/crypto/bcrypt"
@@ -32,30 +32,43 @@ func main() {
 
 	repository.CreateTestUser(db, string(hash))
 
-	fmt.Println("Test User ensured: admin / 0000")
+	fmt.Println("Test User ensured: rlatkd / 0000")
 
 	h := &handlers.AuthHandler{DB: db}
 
-	http.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == http.MethodGet {
-			h.LoginPage(w, r)
-		} else if r.Method == http.MethodPost {
-			h.LoginProcess(w, r)
-		}
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
+			if r.Method == http.MethodGet {
+					h.LoginPage(w, r)
+			} else {
+					w.WriteHeader(http.StatusMethodNotAllowed)
+			}
 	})
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/api/auth/login", func(w http.ResponseWriter, r *http.Request) {
+			if r.Method == http.MethodPost {
+					h.LoginProcess(w, r)
+			} else {
+					w.WriteHeader(http.StatusMethodNotAllowed)
+			}
+	})
+
+	mux.HandleFunc("/api/auth/refresh", func(w http.ResponseWriter, r *http.Request) {
+			if r.Method == http.MethodPost {
+					h.RefreshProcess(w, r)
+			} else {
+					w.WriteHeader(http.StatusMethodNotAllowed)
+			}
+	})
+
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/login", http.StatusFound)
 	})
-
-	listener, err := net.Listen("tcp", ":8080")
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	fmt.Println("Auth Server started at http://localhost:8080")
 
 	go utils.Opener("http://localhost:8080")
 
-	log.Fatal(http.Serve(listener, nil))
+	log.Fatal(http.ListenAndServe(":8080", middleware.Logger(middleware.EnableCORS(mux))))
 }

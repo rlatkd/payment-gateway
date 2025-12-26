@@ -1,10 +1,11 @@
 export const refreshSession = async () => {
   try {
-    const response = await fetch('http://localhost:8080/auth/refresh', {
+    const response = await fetch('http://localhost:8080/api/auth/refresh', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include', 
       cache: 'no-store', 
     });
 
