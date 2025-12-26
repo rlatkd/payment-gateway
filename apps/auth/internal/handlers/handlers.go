@@ -12,6 +12,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+const AccessTokenDuration = 60 * time.Minute
+
 var (
 	jwtSecret = []byte("JWT_SECRET_KEY") // TODO
 	tmpl = template.Must(template.ParseFiles("templates/login.html"))
@@ -61,7 +63,7 @@ func (h *AuthHandler) LoginProcess(w http.ResponseWriter, r *http.Request) {
 		Value:    accessToken,
 		Path:     "/",
 		HttpOnly: true,
-		Expires:  time.Now().Add(15 * time.Minute),
+		Expires:  time.Now().Add(AccessTokenDuration),
 	})
 	
 	http.SetCookie(w, &http.Cookie{
@@ -81,7 +83,7 @@ func generateAccessToken(u *models.User) (string, error) {
 		"sub":  u.UserID,
 		"name": u.Name,
 		"role": u.RoleID,
-		"exp":  time.Now().Add(time.Minute * 15).Unix(),
+		"exp":  time.Now().Add(AccessTokenDuration).Unix(),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString(jwtSecret)

@@ -2,6 +2,7 @@ import { Sidebar } from '@/widgets/layout/ui/Sidebar';
 import { StatCard } from '@/shared/ui/StatCard';
 import { BillingWidget } from '@/widgets/dashboard/ui/BillingWidget';
 import { Users, FileText, DollarSign, TrendingUp } from 'lucide-react';
+import { UserHeaderProfile } from '@/widgets/layout/ui/UserHeaderProfile';
 
 export default function DashboardPage() {
   return (
@@ -12,11 +13,7 @@ export default function DashboardPage() {
           <div>
             <h1 className="text-[34px] font-bold text-[#2B3674] tracking-tight leading-tight">TODO월 청구 현황</h1>
           </div>
-          <div className="flex items-center gap-4 bg-white p-3 pl-5 rounded-full shadow-sm shadow-gray-100">
-             <input type="text" placeholder="검색..." className="bg-[#F4F7FE] rounded-full px-4 py-2 text-sm focus:outline-none w-40 hidden md:block" />
-             <span className="text-sm font-bold text-[#2B3674] px-3 border-l">김상훈님</span>
-             <div className="w-10 h-10 bg-blue-100 rounded-full bg-[url('https://i.pravatar.cc/100')] bg-cover"></div>
-          </div>
+          <UserHeaderProfile userName="김상훈" />
         </header>
         <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
           <StatCard 
