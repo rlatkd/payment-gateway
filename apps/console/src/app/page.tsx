@@ -1,20 +1,17 @@
-import { Sidebar } from '@/widgets/layout/ui/Sidebar';
 import { StatCard } from '@/shared/ui/StatCard';
 import { BillingWidget } from '@/widgets/dashboard/ui/BillingWidget';
 import { Users, FileText, DollarSign, TrendingUp } from 'lucide-react';
-import { UserHeaderProfile } from '@/widgets/layout/ui/UserHeaderProfile';
 
-export default function DashboardPage() {
+export default function Page() {
   return (
-    <div className="flex min-h-screen bg-[#F4F7FE]">
-      <Sidebar />
-      <main className="flex-1 lg:ml-[290px] p-8 md:p-12 transition-all">
-        <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
-          <div>
-            <h1 className="text-[34px] font-bold text-[#2B3674] tracking-tight leading-tight">TODO월 청구 현황</h1>
-          </div>
-          <UserHeaderProfile userName="김상훈" />
-        </header>
+    <div className="w-full animate-in fade-in duration-500">
+      <div className="max-w-[1600px] mx-auto">
+        <div className="flex flex-col gap-2 mb-10">
+          <h1 className="text-[34px] font-bold text-[#2B3674] tracking-tight leading-tight">
+            12월 청구 현황
+          </h1>
+          <p className="text-[#A3AED0] text-sm font-medium">실시간 결제 및 청구 지표를 확인하세요.</p>
+        </div>
         <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
           <StatCard 
             label="회원 현황" value="251명" subText="신규 157 | 활성 251"
@@ -34,23 +31,23 @@ export default function DashboardPage() {
           />
         </section>
         <section className="grid grid-cols-1 xl:grid-cols-5 gap-8 h-auto xl:h-[600px]">
-          <div className="xl:col-span-3 bg-white rounded-[30px] p-8 shadow-sm flex flex-col">
+          <div className="xl:col-span-3 bg-white rounded-[30px] p-8 shadow-sm shadow-indigo-100/30 flex flex-col">
             <div className="flex justify-between items-center mb-8">
-              <h3 className="text-2xl font-bold text-[#2B3674]">2024년 8월</h3>
+              <h3 className="text-2xl font-bold text-[#2B3674]">2025년 12월</h3>
               <div className="flex gap-3">
-                 <button className="bg-[#F4F7FE] text-[#4318FF] px-4 py-2 rounded-xl text-sm font-bold hover:bg-blue-100 transition">이전</button>
-                 <button className="bg-[#F4F7FE] text-[#4318FF] px-4 py-2 rounded-xl text-sm font-bold hover:bg-blue-100 transition">다음</button>
+                 <button className="bg-[#F4F7FE] text-[#4318FF] px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-blue-100 transition-all active:scale-95">이전</button>
+                 <button className="bg-[#F4F7FE] text-[#4318FF] px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-blue-100 transition-all active:scale-95">다음</button>
               </div>
             </div>
-            <div className="flex-1 border-2 border-dashed border-gray-200 rounded-3xl bg-[#F8F9FA] flex items-center justify-center text-[#A3AED0] font-medium text-lg">
-               캘린더 컴포넌트 자리
+            <div className="flex-1 border-2 border-dashed border-gray-100 rounded-3xl bg-[#F8F9FA] flex items-center justify-center text-[#A3AED0] font-medium text-lg">
+                캘린더 컴포넌트 준비 중
             </div>
           </div>
           <div className="xl:col-span-2">
             <BillingWidget />
           </div>
         </section>
-      </main>
+      </div>
     </div>
   );
 }

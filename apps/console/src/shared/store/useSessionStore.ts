@@ -29,6 +29,8 @@ export const useSessionStore = create<SessionState>((set, get) => ({
   },
 
   handleActualRefresh: async () => {
+    set({ showRefreshModal: false });
+
     const result = await refreshSession();
     if (result.success) {
       set({ showRefreshModal: false, timeLeft: 3600 });
@@ -39,13 +41,18 @@ export const useSessionStore = create<SessionState>((set, get) => ({
   },
 
   checkSessionTime: () => {
+    const { showRefreshModal } = get();
+
+    if (showRefreshModal) return;
+
     const loginAt = Cookies.get('login_at');
+
     if (loginAt) {
       const loginTime = new Date(loginAt).getTime();
       const currentTime = new Date().getTime();
       const diffMs = currentTime - loginTime;
 
-       if (diffMs >= 1000 * 60 * 55) {
+      if (diffMs >= 1000 * 60 * 55) {
         set({ showRefreshModal: true });
       }
     }

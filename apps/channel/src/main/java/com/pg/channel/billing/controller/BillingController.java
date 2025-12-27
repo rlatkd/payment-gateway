@@ -1,4 +1,5 @@
 package com.pg.channel.billing.controller;
 
-public class AController {
+
+public class BillingController {
 }

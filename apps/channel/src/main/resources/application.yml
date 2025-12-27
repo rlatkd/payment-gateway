@@ -13,13 +13,13 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update # ??? ??? ???? none ?? validate
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
         physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-    open-in-view: false # ?? ? ???? ?? ??
+    open-in-view: false
 
   h2:
     console:
@@ -29,4 +29,4 @@ spring:
 logging:
   level:
     org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE # SQL ???? ???
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

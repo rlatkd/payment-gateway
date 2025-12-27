@@ -2,19 +2,90 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>로그인</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayHub</title>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 100px; }
-        .container { width: 300px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
-        input { width: 100%; padding: 10px; margin-bottom: 10px; box-sizing: border-box; }
-        button { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer; }
-        .error { color: red; margin-top: 10px; text-align: center; }
+        body { 
+            font-family: 'Pretendard', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0;
+            background-color: #F4F7FE; 
+        }
+
+        .container { 
+            width: 380px; 
+            padding: 40px; 
+            background: white;
+            border-radius: 20px; 
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 { 
+            text-align: center; 
+            color: #2B3674;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 30px;
+        }
+        input { 
+            width: 100%; 
+            padding: 14px 20px; 
+            margin-bottom: 15px; 
+            box-sizing: border-box; 
+            border: 1px solid #E0E5F2;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: #4318FF;
+        }
+
+        button { 
+            width: 100%; 
+            padding: 14px; 
+            background-color: #4318FF; 
+            color: white; 
+            border: none; 
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer; 
+            transition: all 0.2s;
+            margin-top: 10px;
+        }
+
+        button:hover { 
+            background-color: #3311CC; 
+            box-shadow: 0px 5px 15px rgba(67, 24, 255, 0.3);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #message { 
+            margin-top: 15px; 
+            font-size: 13px;
+            text-align: center;
+            min-height: 20px;
+        }
+
+        .error { 
+            color: #EE5D50; 
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2 style="text-align: center;">System Login</h2>
+        <h2>PayHub</h2>
         
         <form hx-post="/api/auth/login" hx-target="#message" hx-swap="innerHTML">
             <input type="text" name="user_id" placeholder="아이디" required>
