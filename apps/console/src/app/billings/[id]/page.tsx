@@ -21,7 +21,7 @@ export default function BillingDetailPage() {
         paymentId: `PAY-${Date.now()}`,
         billingId: id as string,
         // invoiceId: `INV-${id}`,
-        invoiceId: 'INV-001',
+        invoiceId: 'INV-002',
         amount: 49000,
       });
 
